@@ -1,0 +1,21 @@
+### Create User
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+    "name":"swaragini",
+    "email":"swa12@gmail.com",
+    "dateOfBirth":"2005-05-12",
+    "mobileNumber":99999999
+}
+### Read all users
+GET http://localhost:4000/user-api/users
+
+### Read user by Id
+GET http://localhost:4000/user-api/users/69a68c8abec2e09d19b8161e
+
+### Delete user
+DELETE http://localhost:4000/user-api/users/69a68c8abec2e09d19b8161e
+
+### Activate user
+PATCH http://localhost:4000/user-api/users/69a68c8abec2e09d19b8161e
