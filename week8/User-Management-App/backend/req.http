@@ -1,0 +1,29 @@
+### CREATE USER
+POST http://localhost:8000/user-api/create-user
+Content-Type: application/json
+
+{
+  "name": "Greeshma",
+  "email": "greeshma@gmail.com",
+  "dob": "2003-05-15",
+  "no": 9876543210
+}
+
+### READ ALL USERS
+GET http://localhost:8000/user-api/users
+
+### READ USER BY ID
+GET http://localhost:8000/user-api/users/69a6902b20754eb7d20b06b9
+
+### UPDATE USER BY ID
+PUT http://localhost:8000/user-api/users/69a6902b20754eb7d20b06b9
+Content-Type: application/json
+
+{
+  "name": "Gudladona Greeshma"
+}
+
+### DELETE USER BY ID
+DELETE http://localhost:8000/user-api/users/69a6902b20754eb7d20b06b9
+##3activate user 
+PATCH http://localhost:8000/user-api/users/69a6902b20754eb7d20b06b9
