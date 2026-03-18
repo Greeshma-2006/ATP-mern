@@ -8,10 +8,9 @@ import User from "../models/UserModel.js";
 const userApi = express.Router();
 
 
-/* ===============================
-   ➤ CREATE USER
+/* CREATE USER
    Endpoint: POST /user-api/create-user
-================================= */
+ */
 userApi.post("/create-user", async (req, res, next) => {
     try {
         // Create new user using request body data
@@ -29,10 +28,9 @@ userApi.post("/create-user", async (req, res, next) => {
 });
 
 
-/* ===============================
-   ➤ READ ALL USERS
+/*READ ALL USERS
    Endpoint: GET /user-api/users
-================================= */
+ */
 userApi.get("/users", async (req, res, next) => {
     try {
         // Fetch all users from database
@@ -49,10 +47,9 @@ userApi.get("/users", async (req, res, next) => {
 });
 
 
-/* ===============================
-   ➤ READ USER BY ID
+/*  READ USER BY ID
    Endpoint: GET /user-api/users/:id
-================================= */
+ */
 userApi.get("/users/:id", async (req, res, next) => {
     try {
         // Find user using MongoDB ID
@@ -76,10 +73,9 @@ userApi.get("/users/:id", async (req, res, next) => {
 });
 
 
-/* ===============================
-   ➤ UPDATE USER BY ID
+/* UPDATE USER BY ID
    Endpoint: PUT /user-api/users/:id
-================================= */
+ */
 userApi.put("/users/:id", async (req, res, next) => {
     try {
         // Update user and return updated document
@@ -106,10 +102,9 @@ userApi.put("/users/:id", async (req, res, next) => {
 });
 
 
-/* ===============================
-   ➤ DELETE USER BY ID
+/*  DELETE USER BY ID
    Endpoint: DELETE /user-api/users/:id
-================================= */
+ */
 userApi.delete("/users/:id", async (req, res, next) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.params.id);

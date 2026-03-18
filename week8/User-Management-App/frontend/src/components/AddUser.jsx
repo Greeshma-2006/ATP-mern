@@ -15,14 +15,14 @@ function AddUser() {
   const handleChange = (e) => {
     setUser({
       ...user,
-      [e.target.name]: e.target.value.trim() // ✅ avoid empty spaces
+      [e.target.name]: e.target.value.trim() 
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ VALIDATION (VERY IMPORTANT)
+    //  VALIDATION 
     if (!user.name || !user.email || !user.dob || !user.mobile) {
       alert("All fields are required");
       return;

@@ -2,7 +2,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors"; // ✅ ADD THIS
+import cors from "cors"; 
 
 // Import user API routes
 import userApi from "./APIs/UserApi.js";
@@ -13,7 +13,6 @@ dotenv.config();
 // Create express application
 const app = express();
 
-// ✅ ADD THIS (VERY IMPORTANT)
 app.use(cors());
 
 // Middleware to parse JSON request body
@@ -23,9 +22,9 @@ app.use(express.json());
 app.use("/user-api", userApi);
 
 
-/* ==================================
+/* 
    DATABASE CONNECTION
-================================== */
+ */
 async function connectDB() {
     try {
         await mongoose.connect(process.env.DB_URL);
@@ -45,9 +44,9 @@ async function connectDB() {
 }
 
 
-/* ==================================
+/* 
    ERROR HANDLING MIDDLEWARE
-================================== */
+ */
 app.use((err, req, res, next) => {
   if (err.name === "ValidationError") {
     return res.status(400).json({
