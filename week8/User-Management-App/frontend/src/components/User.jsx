@@ -7,7 +7,7 @@ function User() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/users/${id}`)
+    axios.get(`https://user-management-app-adpx.onrender.com/user-api/users${id}`)
       .then(res => setUser(res.data));
   }, [id]);
 

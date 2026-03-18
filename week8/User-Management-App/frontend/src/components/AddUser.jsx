@@ -30,7 +30,7 @@ function AddUser() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/user-api/create-user",
+        "https://user-management-app-adpx.onrender.com/user-api/create-user",
         {
           name: user.name,
           email: user.email,

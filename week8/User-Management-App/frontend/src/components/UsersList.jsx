@@ -7,7 +7,7 @@ function UsersList() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/user-api/users");
+        const res = await axios.get("https://user-management-app-adpx.onrender.com/user-api/users");
         setUsers(res.data.data);
       } catch (err) {
         console.error(err);
