@@ -69,8 +69,8 @@ function Header() {
             {user?.role === "AUTHOR" && (
               <NavLink to="/author/write-article">
                 Write
-              </NavLink>
-            )}
+                </NavLink>
+              )}
 
             {/* LOGOUT */}
             <button

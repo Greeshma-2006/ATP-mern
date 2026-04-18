@@ -7,14 +7,13 @@ import { verifyToken } from "../Middleware/verifyToken.js";
 const commonRouter = exp.Router();
 
 
-// LOGIN
+// ================= LOGIN =================
 commonRouter.post("/login", async (req, res, next) => {
   try {
     const userCredObj = req.body;
 
     const { token, user } = await authenticate(userCredObj);
 
-    // set cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: false,
@@ -24,7 +23,7 @@ commonRouter.post("/login", async (req, res, next) => {
 
     res.status(200).json({
       message: "login success",
-      payload: user   // aligned with source
+      payload: user
     });
 
   } catch (err) {
@@ -33,7 +32,7 @@ commonRouter.post("/login", async (req, res, next) => {
 });
 
 
-// LOGOUT
+// ================= LOGOUT =================
 commonRouter.get("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
@@ -47,54 +46,70 @@ commonRouter.get("/logout", (req, res) => {
 });
 
 
-// CHANGE PASSWORD (Protected)
-commonRouter.put("/change-password", verifyToken("USER", "AUTHOR", "ADMIN"), async (req, res, next) => {
-  try {
+// ================= CHANGE PASSWORD =================
+commonRouter.put(
+  "/change-password",
+  verifyToken("USER", "AUTHOR", "ADMIN"),
+  async (req, res, next) => {
+    try {
+      const { currentPassword, newPassword } = req.body;
 
-    const { currentPassword, newPassword } = req.body;
+      if (currentPassword === newPassword) {
+        return res.status(400).json({
+          message: "newPassword must be different from currentPassword"
+        });
+      }
 
-    // prevent same password
-    if (currentPassword === newPassword) {
-      return res.status(400).json({
-        message: "newPassword must be different from currentPassword"
+      const user = await UserTypeModel.findById(req.user.userId);
+
+      if (!user) {
+        return res.status(404).json({ message: "user not found" });
+      }
+
+      const ok = await bcrypt.compare(currentPassword, user.password);
+
+      if (!ok) {
+        return res.status(401).json({
+          message: "Current password is incorrect"
+        });
+      }
+
+      user.password = await bcrypt.hash(newPassword, 10);
+      await user.save();
+
+      res.status(200).json({
+        message: "Password changed successfully"
       });
+
+    } catch (err) {
+      next(err);
     }
-
-    // get user from token instead of params (secure)
-    const user = await UserTypeModel.findById(req.user.userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "user not found" });
-    }
-
-    const ok = await bcrypt.compare(currentPassword, user.password);
-
-    if (!ok) {
-      return res.status(401).json({ message: "Current password is incorrect" });
-    }
-
-    user.password = await bcrypt.hash(newPassword, 10);
-    await user.save();
-
-    res.status(200).json({
-      message: "Password changed successfully"
-    });
-
-  } catch (err) {
-    next(err);
   }
-});
+);
 
 
-// PAGE REFRESH CHECK
+// ================= PAGE REFRESH CHECK =================
 commonRouter.get(
   "/check-auth",
   verifyToken("USER", "AUTHOR", "ADMIN"),
-  (req, res) => {
-    res.status(200).json({
-      message: "authenticated",
-      payload: req.user
-    });
+  async (req, res, next) => {
+    try {
+      const fullUser = await UserTypeModel.findById(req.user.userId).select("-password");
+
+      if (!fullUser) {
+        return res.status(404).json({
+          message: "User not found"
+        });
+      }
+
+      res.status(200).json({
+        message: "authenticated",
+        payload: fullUser
+      });
+
+    } catch (err) {
+      next(err);
+    }
   }
 );
 

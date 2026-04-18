@@ -80,10 +80,14 @@ function UserProfile() {
 </p>
 
         <img
-          src={currentUser?.profileImageUrl}
-          className="w-14 h-14 rounded-full ms-auto mt-2"
-          alt="profile"
-        />
+        src={
+        currentUser?.profileImageUrl?.startsWith("http")
+        ? currentUser.profileImageUrl
+        : `http://localhost:5000/${currentUser?.profileImageUrl}`
+      }
+      alt="profile"
+      className="w-20 h-20 rounded-full object-cover border shadow"
+      />
       </div>
 
       {/* LOGOUT */}

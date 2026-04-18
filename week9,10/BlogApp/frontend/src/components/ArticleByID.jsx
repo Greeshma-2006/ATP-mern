@@ -7,6 +7,7 @@ function ArticleByID() {
 
   const [article, setArticle] = useState(null);
   const [newComment, setNewComment] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const BASE_URL = "http://localhost:5000";
 
@@ -19,9 +20,10 @@ function ArticleByID() {
         );
 
         setArticle(res.data.payload);
-
       } catch (err) {
-        console.error(err.response?.data || err.message);
+        console.log(err.response?.data || err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -36,61 +38,68 @@ function ArticleByID() {
         `${BASE_URL}/user-api/articles`,
         {
           articleId: id,
-          comment: newComment
+          comment: newComment,
         },
         { withCredentials: true }
       );
 
       setArticle(res.data.payload);
       setNewComment("");
-
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      console.log(err.response?.data || err.message);
     }
   };
 
-  if (!article) return <h3>Loading...</h3>;
+  if (loading) return <p className="text-center mt-10">Loading article...</p>;
+  if (!article) return <p className="text-center mt-10">Article not found</p>;
 
   return (
-    <div className="container mt-4">
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="bg-white shadow rounded-xl p-6 border">
+        <h1 className="text-3xl font-bold mb-3">{article.title}</h1>
 
-      <h2>{article.title}</h2>
-      <p>{article.content}</p>
+        <p className="text-sm text-gray-500 mb-4">
+          Category: {article.category}
+        </p>
 
-      <hr />
+        <p className="leading-7 whitespace-pre-line">{article.content}</p>
+      </div>
 
-      <h4>Comments</h4>
+      <div className="bg-white shadow rounded-xl p-6 border mt-6">
+        <h2 className="text-xl font-semibold mb-4">Add Comment</h2>
 
-      <div className="mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Write a comment..."
+        <textarea
+          rows="3"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
+          placeholder="Write your comment..."
+          className="border w-full p-3 rounded"
         />
 
         <button
-          className="btn btn-primary mt-2"
           onClick={handleAddComment}
+          className="bg-blue-600 text-white px-5 py-2 rounded mt-3"
         >
           Add Comment
         </button>
       </div>
 
-      {article.comments?.length > 0 ? (
-        article.comments.map((c, index) => (
-          <div key={index} className="border p-2 mb-2">
-            <strong>
-              {c.user?.firstName} {c.user?.lastName}
-            </strong>
-            <p>{c.comment}</p>
-          </div>
-        ))
-      ) : (
-        <p>No comments yet</p>
-      )}
+      <div className="bg-white shadow rounded-xl p-6 border mt-6">
+        <h2 className="text-xl font-semibold mb-4">Comments</h2>
 
+        {article.comments?.length > 0 ? (
+          article.comments.map((item, index) => (
+            <div key={index} className="border-b py-3">
+              <p className="font-semibold">
+                {item.user?.firstName} {item.user?.lastName}
+              </p>
+              <p>{item.comment}</p>
+            </div>
+          ))
+        ) : (
+          <p>No comments yet</p>
+        )}
+      </div>
     </div>
   );
 }

@@ -2,19 +2,29 @@ import express from 'express';
 import { register } from '../Services/authService.js';
 import { ArticleModel } from '../models/articleModel.js';
 import { verifyToken } from "../Middleware/verifyToken.js";
-import { upload } from "../config/multer.js"; 
+import { upload } from "../config/multer.js";
+import cloudinary from "../config/cloudinary.js";
+import { uploadToCloudinary } from "../config/cloudinaryUpload.js";
+
 const authorRoute = express.Router();
 
 
 // ================= AUTHOR REGISTER =================
 authorRoute.post(
-  '/users',
-  upload.single("profileImageUrl"), 
+  "/users",
+  upload.single("profileImageUrl"),
   async (req, res, next) => {
+    let cloudinaryResult;
+
     try {
+      if (req.file) {
+        cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+      }
+
       const newAuthor = await register({
         ...req.body,
-        role: "AUTHOR"
+        role: "AUTHOR",
+        profileImageUrl: cloudinaryResult?.secure_url,
       });
 
       res.status(201).json({
@@ -23,6 +33,10 @@ authorRoute.post(
       });
 
     } catch (err) {
+      if (cloudinaryResult?.public_id) {
+        await cloudinary.uploader.destroy(cloudinaryResult.public_id);
+      }
+
       next(err);
     }
   }

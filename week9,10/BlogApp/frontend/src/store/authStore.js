@@ -1,30 +1,93 @@
-import { useEffect } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import { Outlet } from "react-router-dom";
-import { useAuth } from "../store/authStore";
+import { create } from "zustand";
+import axios from "axios";
 
-function RootLayout() {
-  const checkAuth = useAuth((state) => state.checkAuth);
-  const loading = useAuth((state) => state.loading);
+export const useAuth = create((set) => ({
+  currentUser: null,
+  loading: false,
+  isAuthenticated: false,
+  error: null,
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
+  // ================= LOGIN =================
+  login: async (userCredWithRole) => {
+    const { ROLE, ...userCredObj } = userCredWithRole;
 
-  if (loading) {
-    return <p className="text-center mt-10">Loading...</p>;
-  }
+    try {
+      set({ loading: true, error: null });
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow p-4">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  );
-}
+      const res = await axios.post(
+        "http://localhost:5000/common-api/login",
+        userCredObj,
+        { withCredentials: true }
+      );
 
-export default RootLayout;
+      set({
+        loading: false,
+        isAuthenticated: true,
+        currentUser: res.data.payload,
+        error: null,
+      });
+
+    } catch (err) {
+      set({
+        loading: false,
+        isAuthenticated: false,
+        currentUser: null,
+        error: err.response?.data?.error || "Login failed",
+      });
+    }
+  },
+
+  // ================= LOGOUT =================
+  logout: async () => {
+    try {
+      set({ loading: true, error: null });
+
+      await axios.get(
+        "http://localhost:5000/common-api/logout",
+        { withCredentials: true }
+      );
+
+      set({
+        loading: false,
+        isAuthenticated: false,
+        currentUser: null,
+        error: null,
+      });
+
+    } catch (err) {
+      set({
+        loading: false,
+        isAuthenticated: false,
+        currentUser: null,
+        error: err.response?.data?.error || "Logout failed",
+      });
+    }
+  },
+
+  // ================= RESTORE LOGIN =================
+  checkAuth: async () => {
+    try {
+      set({ loading: true, error: null });
+
+      const res = await axios.get(
+        "http://localhost:5000/common-api/check-auth",
+        { withCredentials: true }
+      );
+
+      set({
+        currentUser: res.data.payload,
+        isAuthenticated: true,
+        loading: false,
+        error: null,
+      });
+
+    } catch {
+      set({
+        currentUser: null,
+        isAuthenticated: false,
+        loading: false,
+        error: null,
+      });
+    }
+  },
+}));

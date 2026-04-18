@@ -12,16 +12,18 @@ function RootLayout() {
     checkAuth();
   }, []);
 
-  if (loading) {
-    return <p className="text-center mt-10">Loading...</p>;
-  }
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
+
       <main className="flex-grow p-4">
-        <Outlet />
+        {loading ? (
+          <p className="text-center mt-10">Loading...</p>
+        ) : (
+          <Outlet />
+        )}
       </main>
+
       <Footer />
     </div>
   );

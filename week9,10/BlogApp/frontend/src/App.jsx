@@ -1,72 +1,40 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../store/authStore";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function AuthorArticles() {
-  const navigate = useNavigate();
-  const user = useAuth((state) => state.currentUser);
+import RootLayout from "./components/RootLayout";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import AuthorProfile from "./components/AuthorProfile";
+import UserProfile from "./components/UserProfile";
+import AuthorArticles from "./components/AuthorArticles";
+import WriteArticle from "./components/WriteArticle";
+import Unauthorized from "./components/Unauthorized";
+import ArticleByID from "./components/ArticleByID";
+import EditArticle from "./components/EditArticle";
 
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!user?._id) return;
-
-    const getAuthorArticles = async () => {
-      setLoading(true);
-
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/author-api/articles/${user._id}`,
-          { withCredentials: true }
-        );
-
-        setArticles(res.data.payload || []);
-      } catch (err) {
-        setError(err.response?.data?.message || "Failed to fetch articles");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getAuthorArticles();
-  }, [user]);
-
-  const openArticle = (article) => {
-    navigate(`/article/${article._id}`, { state: article });
-  };
-
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
-  if (error) return <p className="text-red-500 text-center">{error}</p>;
-
-  if (articles.length === 0) {
-    return <p className="text-center">No articles yet</p>;
-  }
-
+function App() {
   return (
-    <div className="grid grid-cols-3 gap-5">
-      {articles.map((article) => (
-        <div key={article._id} className="border p-4 rounded shadow">
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
 
-          <h3 className="font-bold">{article.title}</h3>
+          <Route path="author" element={<AuthorProfile />}>
+            <Route path="articles" element={<AuthorArticles />} />
+            <Route path="write-article" element={<WriteArticle />} />
+          </Route>
 
-          <p className="text-sm mt-2">
-            {article.content?.slice(0, 60)}...
-          </p>
+          <Route path="user" element={<UserProfile />} />
 
-          <button
-            className="text-blue-600 mt-4"
-            onClick={() => openArticle(article)}
-          >
-            Read →
-          </button>
-
-        </div>
-      ))}
-    </div>
+          <Route path="article/:id" element={<ArticleByID />} />
+          <Route path="edit-article/:id" element={<EditArticle />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
-export default AuthorArticles;
+export default App;

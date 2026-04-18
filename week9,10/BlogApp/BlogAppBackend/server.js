@@ -25,7 +25,9 @@ app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
-
+ 
+// ================== STATIC FILES ==================
+app.use("/uploads", express.static("uploads"));
 
 // ================== ROUTES ==================
 app.use('/user-api', userRoute);
