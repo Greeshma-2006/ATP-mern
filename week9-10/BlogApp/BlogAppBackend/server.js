@@ -23,19 +23,18 @@ app.use(cookieParser());
 // ================== CORS CONFIGURATION ==================
 app.use(cors({
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      "http://localhost:5173",
-      "https://blogapp-three-iota-55.vercel.app",
-      "https://blogapp-pt168akil-greeshma-2006s-projects.vercel.app"
-    ];
-
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (
+      !origin ||
+      origin === "http://localhost:5173" ||
+      origin.endsWith(".vercel.app")
+    ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"]
 }));
  
 // ================== STATIC FILES ==================
