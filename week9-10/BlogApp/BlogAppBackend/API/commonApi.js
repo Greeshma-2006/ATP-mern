@@ -6,6 +6,8 @@ import { verifyToken } from "../Middleware/verifyToken.js";
 
 const commonRouter = exp.Router();
 
+const isProduction = process.env.NODE_ENV === "production";
+
 
 // ================= LOGIN =================
 commonRouter.post("/login", async (req, res, next) => {
@@ -16,8 +18,8 @@ commonRouter.post("/login", async (req, res, next) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: isProduction,
+      sameSite: isProduction ? "none" : "lax",
       maxAge: 60 * 60 * 1000
     });
 
@@ -36,8 +38,8 @@ commonRouter.post("/login", async (req, res, next) => {
 commonRouter.get("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax"
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax"
   });
 
   res.status(200).json({
@@ -63,7 +65,9 @@ commonRouter.put(
       const user = await UserTypeModel.findById(req.user.userId);
 
       if (!user) {
-        return res.status(404).json({ message: "user not found" });
+        return res.status(404).json({
+          message: "user not found"
+        });
       }
 
       const ok = await bcrypt.compare(currentPassword, user.password);
@@ -94,7 +98,9 @@ commonRouter.get(
   verifyToken("USER", "AUTHOR", "ADMIN"),
   async (req, res, next) => {
     try {
-      const fullUser = await UserTypeModel.findById(req.user.userId).select("-password");
+      const fullUser = await UserTypeModel
+        .findById(req.user.userId)
+        .select("-password");
 
       if (!fullUser) {
         return res.status(404).json({
@@ -112,6 +118,5 @@ commonRouter.get(
     }
   }
 );
-
 
 export default commonRouter;
