@@ -60,7 +60,6 @@ userRoute.post("/login", async (req, res, next) => {
 });
 
 // ================= GET ALL ARTICLES =================
-// ✅ FIX: allow USER + AUTHOR
 userRoute.get("/articles", verifyToken("USER", "AUTHOR"), async (req, res, next) => {
   try {
     const articles = await ArticleModel.find({
@@ -80,7 +79,6 @@ userRoute.get("/articles", verifyToken("USER", "AUTHOR"), async (req, res, next)
 });
 
 // ================= GET SINGLE ARTICLE =================
-// ✅ FIX: allow USER + AUTHOR
 userRoute.get("/article/:id", verifyToken("USER", "AUTHOR"), async (req, res, next) => {
   try {
     const article = await ArticleModel.findOne({
@@ -107,7 +105,6 @@ userRoute.get("/article/:id", verifyToken("USER", "AUTHOR"), async (req, res, ne
 });
 
 // ================= ADD COMMENT =================
-// ✅ FIX: allow USER + AUTHOR
 userRoute.put("/articles", verifyToken("USER", "AUTHOR"), async (req, res, next) => {
   try {
     const { articleId, comment } = req.body;

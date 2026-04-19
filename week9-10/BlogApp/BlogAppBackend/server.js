@@ -22,7 +22,10 @@ app.use(cookieParser());
 
 // ================== CORS CONFIGURATION ==================
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",
+    "https://blogapp-three-iota-55.vercel.app"
+  ],
   credentials: true
 }));
  

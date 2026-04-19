@@ -1,40 +1,78 @@
-remove unecessary rerendering,
-primitive and non-primitive state 
-redux toolkit - lot of boilerplate code  or zunstand - simple when compared 
-redux vs reduxtoolkit 
-r and z both used for state management 
-//fetch
-//get
-let resObj= await fetch("",{method:"GET"})
-if(resObj.status != 200){
-    throw new Error("")
-}
-let res=await resObj.json()
-//axios 
-//get
-let resObj = await axios.get("")
-let res=resObj.data;
+# BlogApp
 
-first click 
-app.jx then login toast message while logging and logging out
+A full-stack MERN Blog Application with role-based authentication for **Users**, **Authors**, and **Admins**. Users can read articles and comment, Authors can create/manage articles, and Admins can manage the platform.
 
-from userdashboard component
-read articles of all authors
-display them in the form of grid of cards
-1 card for extra small
-2 card for small
-3card for medium 
-4 card for large screen records 
-complete the task with loading and toast statements 
+## Features
 
-day19
-cdn content delivery network for file uploads or aws(complex)
-cloudinary, aws -cloud services
-multer
-disk i/o rates 
-every event handler will send event object implicitly 
-file.type , file.size
-subordinate memory is best check
-next function with and without parameters
-navigate, photo, protected route edit authstore, login nav, check roles, unauthorized jsx which will wait for 3 seconds and redirect, page refresh
-logout then redirect to login 
+## Authentication
+
+* Register / Login / Logout
+* JWT authentication with HTTP-only cookies
+* Session restore on refresh
+* Role-based access control
+
+## User Features
+
+* View articles
+* Read full article details
+* Add comments
+* View profile with image
+
+## Author Features
+
+* Author dashboard
+* Create articles
+* View own articles
+* Edit articles
+* Soft delete / restore articles
+* Profile with uploaded image
+
+
+## Tech Stack
+
+### Frontend
+
+* React
+* Vite
+* React Router DOM
+* Zustand
+* Axios
+* Tailwind CSS
+* React Hook Form
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JWT
+* bcryptjs
+* Multer
+* CORS
+* cookie-parser
+* dotenv
+
+## Deployment
+
+### Backend (Render)
+
+* Root Directory: `week9_10/BlogApp/BlogAppBackend`
+* Build Command: `npm install`
+* Start Command: `node server.js`
+
+### Frontend (Vercel)
+
+* Root Directory: `week9_10/BlogApp/frontend`
+* Build Command: `npm run build`
+* Output Directory: `dist`
+
+## Notes
+
+* Update frontend API URLs after backend deployment.
+* Add deployed frontend URL in backend CORS settings.
+* Use MongoDB Atlas for production database.
+
+## Author
+
+**Gudladona Greeshma**
+

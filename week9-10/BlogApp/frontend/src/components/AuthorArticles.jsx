@@ -19,7 +19,7 @@ function AuthorArticles() {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/author-api/articles/${user._id}`,
+          `https://name-blogapp-backend.onrender.com/author-api/articles/${user._id}`,
           { withCredentials: true }
         );
 

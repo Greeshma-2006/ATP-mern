@@ -9,7 +9,7 @@ function ArticleByID() {
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://name-blogapp-backend.onrender.com";
 
   useEffect(() => {
     const fetchArticle = async () => {

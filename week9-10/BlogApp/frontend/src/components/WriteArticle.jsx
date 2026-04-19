@@ -29,7 +29,7 @@ function WriteArticle() {
 
     try {
       await axios.post(
-        `http://localhost:5000/author-api/articles/${currentUser._id}`,
+        `https://name-blogapp-backend.onrender.com/author-api/articles/${currentUser._id}`,
         data,
         { withCredentials: true }
       );

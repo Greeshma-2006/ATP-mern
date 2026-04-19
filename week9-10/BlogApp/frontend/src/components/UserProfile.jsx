@@ -14,7 +14,7 @@ function UserProfile() {
   const [error, setError] = useState(null);
   const [articles, setArticles] = useState([]);
 
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://name-blogapp-backend.onrender.com";
 
   // ================= FETCH ARTICLES =================
   useEffect(() => {
@@ -83,7 +83,7 @@ function UserProfile() {
         src={
         currentUser?.profileImageUrl?.startsWith("http")
         ? currentUser.profileImageUrl
-        : `http://localhost:5000/${currentUser?.profileImageUrl}`
+        : `https://name-blogapp-backend.onrender.com/${currentUser?.profileImageUrl}`
       }
       alt="profile"
       className="w-20 h-20 rounded-full object-cover border shadow"

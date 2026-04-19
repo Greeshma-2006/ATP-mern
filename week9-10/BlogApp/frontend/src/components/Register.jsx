@@ -11,7 +11,7 @@ function Register() {
   const [preview, setPreview] = useState(null);
 
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://name-blogapp-backend.onrender.com";
 
   useEffect(() => {
     return () => {
@@ -28,7 +28,6 @@ function Register() {
 
       let { role, profileImageUrl, ...userObj } = newUser;
 
-      // ✅ FIX 1: convert role to uppercase
       role = role.toUpperCase();
 
       // append text fields
@@ -47,14 +46,14 @@ function Register() {
         res = await axios.post(
           `${BASE_URL}/user-api/users`,
           formData,
-          { withCredentials: true } // ✅ FIX 2
+          { withCredentials: true } 
         );
       } 
       else if (role === "AUTHOR") {
         res = await axios.post(
           `${BASE_URL}/author-api/users`,
           formData,
-          { withCredentials: true } // ✅ FIX 2
+          { withCredentials: true } 
         );
       } 
       else {

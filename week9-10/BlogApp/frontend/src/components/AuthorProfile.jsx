@@ -31,7 +31,7 @@ function AuthorProfile() {
           src={
           currentUser?.profileImageUrl?.startsWith("http")
           ? currentUser.profileImageUrl
-          :   `http://localhost:5000/${currentUser?.profileImageUrl}`
+          :   `https://name-blogapp-backend.onrender.com/${currentUser?.profileImageUrl}`
         }
         alt="profile"
         className="w-20 h-20 rounded-full object-cover border shadow"

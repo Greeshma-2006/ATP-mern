@@ -1,6 +1,6 @@
 function Profile() {
 
-  // ✅ DIRECT READ (NO useEffect)
+  // DIRECT READ 
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {

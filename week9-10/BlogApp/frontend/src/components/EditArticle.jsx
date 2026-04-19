@@ -20,7 +20,7 @@ function EditArticle() {
 
   const article = location.state;
 
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://name-blogapp-backend.onrender.com";
 
   const {
     register,
