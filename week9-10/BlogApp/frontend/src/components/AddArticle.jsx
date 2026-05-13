@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 
+//add article form with react hook form
 function AddArticle() {
   const { register, handleSubmit, formState:{errors} } = useForm();
 

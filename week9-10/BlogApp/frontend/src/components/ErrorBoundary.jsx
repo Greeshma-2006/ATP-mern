@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router-dom";
 
+//error boundary component for route errors
 function ErrorBoundary() {
   const error = useRouteError();
 

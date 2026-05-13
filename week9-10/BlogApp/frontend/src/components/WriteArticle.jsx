@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/authStore.js";
 
+//write article page for authors with form validation and error handling
 function WriteArticle() {
   const navigate = useNavigate();
   const currentUser = useAuth((state) => state.currentUser);
@@ -17,7 +18,8 @@ function WriteArticle() {
     formState: { errors },
     reset,
   } = useForm();
-
+  
+  // ================= SUBMIT ARTICLE =================
   const submitArticle = async (data) => {
     if (!currentUser?._id) {
       setError("User not loaded. Please login again.");

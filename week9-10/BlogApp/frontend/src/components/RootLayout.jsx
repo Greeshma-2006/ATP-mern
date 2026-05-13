@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import { useAuth } from "../store/authStore";
 
+//root layout with header, footer and outlet for nested routes
 function RootLayout() {
   const checkAuth = useAuth((state) => state.checkAuth);
   const loading = useAuth((state) => state.loading);

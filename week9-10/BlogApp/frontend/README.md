@@ -1,16 +1,78 @@
-# React + Vite
+# BlogApp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack MERN Blog Application with role-based authentication for **Users**, **Authors**, and **Admins**. Users can read articles and comment, Authors can create/manage articles, and Admins can manage the platform.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Authentication
 
-## React Compiler
+* Register / Login / Logout
+* JWT authentication with HTTP-only cookies
+* Session restore on refresh
+* Role-based access control
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## User Features
 
-## Expanding the ESLint configuration
+* View articles
+* Read full article details
+* Add comments
+* View profile with image
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Author Features
+
+* Author dashboard
+* Create articles
+* View own articles
+* Edit articles
+* Soft delete / restore articles
+* Profile with uploaded image
+
+
+## Tech Stack
+
+### Frontend
+
+* React
+* Vite
+* React Router DOM
+* Zustand
+* Axios
+* Tailwind CSS
+* React Hook Form
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB + Mongoose
+* JWT
+* bcryptjs
+* Multer
+* CORS
+* cookie-parser
+* dotenv
+
+## Deployment
+
+### Backend (Render)
+
+* Root Directory: `week9_10/BlogApp/BlogAppBackend`
+* Build Command: `npm install`
+* Start Command: `node server.js`
+
+### Frontend (Vercel)
+
+* Root Directory: `week9_10/BlogApp/frontend`
+* Build Command: `npm run build`
+* Output Directory: `dist`
+
+## Notes
+
+* Update frontend API URLs after backend deployment.
+* Add deployed frontend URL in backend CORS settings.
+* Use MongoDB Atlas for production database.
+
+## Author
+
+**Gudladona Greeshma**
+

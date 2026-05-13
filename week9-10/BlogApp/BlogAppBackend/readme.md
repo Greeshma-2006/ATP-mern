@@ -1,29 +1,30 @@
-### Backend Development 
-1. create git repo
-   git init
-2. add .gitignore file
-3. create .env file for environment variables and read data from .env with .env module
-   npm install dotenv
-4. generate package,json 
-   npm init -y
-5. create express app
-6.connect to mongoose 
-7. add middleware  body parser, err handling middleware
-8.design schema and create 
-9.
+### Backend Development Overview
+Initialized Git repository and managed project files using Git.
+Added .gitignore file to ignore unnecessary files like node_modules and .env.
+Used .env file to securely store environment variables such as MongoDB URI and JWT secret key.
+Created backend setup using Node.js and Express.js.
+Connected backend server with MongoDB using Mongoose.
+Implemented middleware for request parsing, authentication, and error handling.
+Designed database schemas and models for storing user and blog data.
+Secured user passwords using hashing and salt values with bcrypt.
+Implemented JWT-based authentication for secure login and protected routes.
+Stored JWT tokens in cookies for maintaining user sessions securely.
+Developed REST APIs for user authentication and blog operations.
+Organized backend using modular folder structure for scalability and maintainability.
 
-mongodb document vs js object, hashing password, salt value  UserTy
+### Authentication Flow
+Client sends login request with email and password.
+Server validates user credentials from database.
+Server generates JWT token after successful login.
+Token is stored in browser cookies.
+Client sends requests with token for protected routes.
+Server verifies token and responds accordingly.
 
-Client sends login request
-
-Server validates user credentials
-
-Server generates JWT token
-
-Token is stored in cookie storage
-
-Client reads token from cookie
-
-Client sends request with token
-
-Server verifies token and responds
+### Technologies Used
+Node.js
+Express.js
+MongoDB
+Mongoose
+JWT
+bcryptjs
+dotenv

@@ -12,6 +12,7 @@ import Unauthorized from "./components/Unauthorized";
 import ArticleByID from "./components/ArticleByID";
 import EditArticle from "./components/EditArticle";
 
+//main app component with routing setup
 function App() {
   return (
     <BrowserRouter>

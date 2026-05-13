@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../store/authStore";
 
+//author's articles page with loading and error states
 function AuthorArticles() {
   const navigate = useNavigate();
   const user = useAuth((state) => state.currentUser);
@@ -11,6 +12,7 @@ function AuthorArticles() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //fetch author's articles on component mount
   useEffect(() => {
     if (!user?._id) return;
 
@@ -38,6 +40,7 @@ function AuthorArticles() {
     navigate(`/article/${article._id}`, { state: article });
   };
 
+  //loading, error and empty states
   if (loading) return <p className="text-center mt-10">Loading...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
   if (articles.length === 0) return <p className="text-center">No articles yet</p>;

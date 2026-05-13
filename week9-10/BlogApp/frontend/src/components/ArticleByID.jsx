@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
+//article details page with comment section
 function ArticleByID() {
   const { id } = useParams();
 
@@ -49,7 +50,7 @@ function ArticleByID() {
       console.log(err.response?.data || err.message);
     }
   };
-
+//loading and error states
   if (loading) return <p className="text-center mt-10">Loading article...</p>;
   if (!article) return <p className="text-center mt-10">Article not found</p>;
 
@@ -75,7 +76,7 @@ function ArticleByID() {
           placeholder="Write your comment..."
           className="border w-full p-3 rounded"
         />
-
+        //add comment button
         <button
           onClick={handleAddComment}
           className="bg-blue-600 text-white px-5 py-2 rounded mt-3"
