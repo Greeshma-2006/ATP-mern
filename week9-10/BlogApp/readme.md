@@ -79,6 +79,8 @@ BlogApp/
 │   ├── package.json
 │
 └── README.md
+---
+
 ## Prerequisites
 
 Before running this project, make sure the following software is installed:
