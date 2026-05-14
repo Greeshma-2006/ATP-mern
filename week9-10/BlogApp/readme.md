@@ -79,6 +79,8 @@ BlogApp/
 │   ├── package.json
 │
 └── README.md
+```
+
 ---
 
 ## Prerequisites
@@ -98,6 +100,8 @@ Before running this project, make sure the following software is installed:
 ```bash
 git clone https://github.com/Greeshma-2006/ATP-mern.git
 ```
+
+---
 
 ## Move into Project Folder
 
